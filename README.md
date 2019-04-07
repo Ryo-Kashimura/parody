@@ -30,7 +30,7 @@
 - 元の歌詞は `.txt` ファイルとして用意する他に， `--lyrics` オプションを使うこともできます。
   - 例) `python ./search_station_path.py --verbose --lyrics 'うさぎ おいし かの やま' example_parody.tsv`
 - デフォルトでは，同じ駅を重複して使用しません。重複を許す場合は， `parody/data/hparams/hparams_v1.json` を編集し， `"repeated": false` を `"repeated": true` に変更してください。
-- デフォルトでは，廃止された駅を重複して使用しません。廃止駅を使用する場合は， `parody/data/hparams/hparams_v1.json` を編集し， `"no_deprecated": true` を `"no_deprecated": false` に変更してください。
+- デフォルトでは，廃止された駅を使用しません。廃止駅を使用する場合は， `parody/data/hparams/hparams_v1.json` を編集し， `"no_deprecated": true` を `"no_deprecated": false` に変更してください。
   
 ## 4. 注意事項
 - 現在のところ，元となる歌詞は **すべてひらがなで** 記述する必要があります。
