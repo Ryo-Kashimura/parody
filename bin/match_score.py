@@ -74,7 +74,7 @@ def term_match_score(term, lyrics, phrase_comsumption_rate, hparams):
     pcr_rate = (float(np.max([old_pcr, new_pcr]) == 1.) * (1. - theta) + theta) * (float(old_pcr * new_pcr == 1.) * (1. - theta) + theta)
     length_rate = len(term_syls)
     # スコアの最終的な評価
-    score = term_score * pcr_rate * length_rate
+    score = term_score * pcr_rate
     return score, remaining_lyrics, new_pcr
 
 def syllable_match_score(syl_a, syl_b, term_syl_pos, lyrics_syl_pos, hparams):
