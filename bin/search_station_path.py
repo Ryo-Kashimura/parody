@@ -144,7 +144,7 @@ def main():
         # 入力ファイルの各行を替え歌に変換していく
         best_path = search_station_path(line, stations, hparams)
         for station in best_path.stations:
-            if hparams['repeated']:
+            if not hparams['repeated']:
                 # 単語の重複を禁じる場合，使用した単語をパスの使用可能単語リストから消去
                 stations.remove(station)
             if args.verbose:
