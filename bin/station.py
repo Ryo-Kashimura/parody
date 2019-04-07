@@ -10,8 +10,8 @@ class Station:
         self.raw_name = row[0]
         # アスタリスクの消去 (例: さぬき* -> さぬき)
         _name = re.sub(r'\*', '', row[0])
-        # かっこの中身(都道府県名)をかっこごと消去
-        m = re.search(r'(?P<station_name>.*)(\(.+\))', _name)
+        # かっこの中身(都道府県名など)をかっこごと消去
+        m = re.search(r'(?P<station_name>.*)((\(.+\))|(\[.+\]))', _name)
         if m:
             # '星の駅　/　星' などの駅名を '/' の左側の名前に統一する
             _name = m.group('station_name')

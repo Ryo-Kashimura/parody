@@ -33,9 +33,12 @@ def initial2stations(stations):
     return _initial2stations
 
 parser = ArgumentParser()
+parser.add_argument('--lyrics_filename', type=str)
+parser.add_argument('parody_filename', type=str)
 parser.add_argument('--hparams_filepath', type=str, default='../data/hparams/hparams_v1.json')
 parser.add_argument('--lyrics', type=str, default='')
-parser.add_argument('--lyrics_filepath', type=str, default='../data/lyrics/世界に一つだけの花.txt')
+parser.add_argument('--parody_filepath', type=str, default='')
+parser.add_argument('--verbose', action='store_true')
 args = parser.parse_args()
 
 class StationPath:
@@ -121,19 +124,38 @@ def main():
     with open(args.hparams_filepath, 'r') as hparams_file:
         hparams = json.load(hparams_file)
     if args.lyrics:
+        # 歌詞を直接入力する場合にそれを受け取る
         lyrics = args.lyrics
     else:
-        with open(args.lyrics_filepath, 'r') as lyrics_file:
+        # 歌詞を .txt ファイルから受け取る場合
+        lyrics_filepath = os.path.join('../data/lyrics/', args.lyrics_filename)
+        with open(lyrics_filepath, 'r') as lyrics_file:
             lyrics = lyrics_file.read()
     if hparams['no_deprecated']:
         stations = [station for station in station_generator(hparams) if not station.deprecated]
     else:
         stations = [station for station in station_generator(hparams)]
+    if not os.path.exists('../result/parody/'):
+        # parody 用のディレクトリが存在していない場合は作成しておく
+        os.path.makedirs('../result/parody/', exist_ok=True)
+    parody_filepath = os.path.join('../result/parody/', args.parody_filename)
+    if os.path.exists(parody_filepath):
+        # 出力ファイルが事前に存在する場合は，追記しないように元のファイルを消去する
+        os.remove(args.parody_filepath)
     for line in tqdm(lyrics.split('\n'), desc='processing lines'):
+        # 入力ファイルの各行を替え歌に変換していく
         best_path = search_station_path(line, stations, hparams)
         for station in best_path.stations:
-            stations.remove(station)
-            print('%s\t%s\t%s %s' % (station.name, station.reading, station.company, station.railway))
+            if hparams['repeated']:
+                # 単語の重複を禁じる場合，使用した単語をパスの使用可能単語リストから消去
+                stations.remove(station)
+            if args.verbose:
+                # 画面に替え歌の歌詞を表示
+                print('%s\t%s\t%s\t%s' % (station.name, station.reading, station.company, station.railway))
+            if parody_filepath:
+                # ファイルに書き込み
+                with open(parody_filepath, 'a') as parody_file:
+                    parody_file.write('%s\t%s\t%s\t%s\n' % (station.name, station.reading, station.company, station.railway))
 
 if __name__ == '__main__':
     main()
