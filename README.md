@@ -20,6 +20,7 @@
 - 歌詞の記述の際，歌詞を文節に区切ってそれぞれの間に半角スペースを挟むことを推奨します。
 ### 3.2 実行
 1. ディレクトリ `parody/bin/` (`.py` ファイルのあるディレクトリ) に移動
+  - 例) `cd ~/parody/bin`
 2. `python ./search_station_path.py --verbose --lyrics_filename 元の歌詞のファイル名 替え歌のファイル名` を実行 (20 - 30 分ほどかかるかもしれません)
   - 例) `python ./search_station_path.py --verbose --lyrics_filename 故郷.txt station_parody_故郷.tsv`
   - 元の歌詞のファイルは `.txt` ファイル，替え歌のファイルは `.tsv` ファイルである必要があります。
