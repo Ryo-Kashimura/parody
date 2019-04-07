@@ -11,7 +11,7 @@
   - `git clone https://github.com/Ryo-Kashimura/parody`
   - **以下，ホームディレクトリにの直下にこのレポジトリをクローンしたものとして説明を進めます。** その他の場所にクローンした場合は適宜ディレクトリやファイルのパスを読み替えてください。
 - `~/parody/bin/requirements.txt` に記述されたパッケージを事前にインストールする必要があります。
-- `pip -r ./parody/bin/requirements.txt` 等のコマンドでインストールできます。
+- `pip -r ~/parody/bin/requirements.txt` 等のコマンドでインストールできます。
 ### 2.2 駅名データの用意
 - ### **ただいま編集中**
 
@@ -25,8 +25,10 @@
 2. `python ./search_station_path.py --verbose --lyrics_filename 元の歌詞のファイル名 替え歌のファイル名` を実行 (20 - 30 分ほどかかるかもしれません)
   - 例) `python ./search_station_path.py --verbose --lyrics_filename 故郷.txt station_parody_故郷.tsv`
   - 元の歌詞のファイルは `.txt` ファイル，替え歌のファイルは `.tsv` ファイルである必要があります。
-  - 替え歌のファイルはテキストエディタでも閲覧できますが，Microsoft Excel または Numbers などのアプリケーションの方が見やすいです。
-### 3.3 オプション機能
+### 3.3 出力ファイルの閲覧
+- 出力ファイルは `~/parody/result/parody/`  以下に `.tsv` ファイルとして保存されます。
+- ファイルはテキストエディタでも閲覧できますが，Microsoft Excel または Numbers などのアプリケーションの方が見やすいです。
+### 3.4 オプション機能
 - 実行中に替え歌の進捗を見たい場合は実行コマンドに `--verbose` オプションをつける必要があります。
 - 元の歌詞は `.txt` ファイルとして用意する他に， `--lyrics` オプションを使うこともできます。
   - 例) `python ./search_station_path.py --verbose --lyrics 'うさぎ おいし かの やま' example_parody.tsv`
