@@ -1,5 +1,6 @@
 #!/usr/local/bin python3
 
+import os
 import sys
 from argparse import ArgumentParser
 import numpy as np
@@ -37,7 +38,6 @@ parser.add_argument('--lyrics_filename', type=str)
 parser.add_argument('parody_filename', type=str)
 parser.add_argument('--hparams_filepath', type=str, default='../data/hparams/hparams_v1.json')
 parser.add_argument('--lyrics', type=str, default='')
-parser.add_argument('--parody_filepath', type=str, default='')
 parser.add_argument('--verbose', action='store_true')
 args = parser.parse_args()
 
@@ -81,8 +81,6 @@ def search_station_path(lyrics, remaining_stations, hparams):
         memory_count = hparams['beam_size'] ** (hparams['memory_steps'] - 1)
         station_paths = sorted(remaining_lyrics2path.values(), key=lambda x: x.match_score, reverse=True)[:memory_count]
         remaining_lyrics_length = max([len(path.remaining_lyrics.split()) for path in station_paths])
-        sys.stdout.write('\rprocessed: %s' % '{:3d}/{:3d}'.format(len(lyrics.split()) - remaining_lyrics_length, len(lyrics.split())))
-        sys.stdout.flush()
     print()
     return sorted(station_paths, key=lambda x: x.match_score, reverse=True)[0]
 
@@ -137,11 +135,11 @@ def main():
         stations = [station for station in station_generator(hparams)]
     if not os.path.exists('../result/parody/'):
         # parody 用のディレクトリが存在していない場合は作成しておく
-        os.path.makedirs('../result/parody/', exist_ok=True)
+        os.makedirs('../result/parody/', exist_ok=True)
     parody_filepath = os.path.join('../result/parody/', args.parody_filename)
     if os.path.exists(parody_filepath):
         # 出力ファイルが事前に存在する場合は，追記しないように元のファイルを消去する
-        os.remove(args.parody_filepath)
+        os.remove(parody_filepath)
     for line in tqdm(lyrics.split('\n'), desc='processing lines'):
         # 入力ファイルの各行を替え歌に変換していく
         best_path = search_station_path(line, stations, hparams)
