@@ -45,7 +45,9 @@ class Station:
 
 def raw_data_generator(data_filepath):
     with open(data_filepath, 'r', encoding='shift-jis') as raw_data_file:
-        for row in csv.reader(raw_data_file, delimiter='\t'):
+        reader = csv.reader(raw_data_file, delimiter='\t')
+        header = next(reader)
+        for row in reader:
             yield row
 
 def station_generator(hparams):
