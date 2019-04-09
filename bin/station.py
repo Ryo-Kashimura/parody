@@ -51,7 +51,13 @@ def raw_data_generator(data_filepath):
             yield row
 
 def station_generator(hparams):
-    station_filepath = hparams['station_dictionary_filepath']
-    gen = raw_data_generator(station_filepath)
+    station_dictionary_dir = hparams['station_dictionary_dir']
+    station_filepaths = [
+        os.path.join(station_dictionary_dir, filename) for filename in os.listdir(station_dictionary_dir)
+        if re.match(r'station_dictionary_\d{8}\.tsv', filename)
+    ]
+    if not station_filepaths:
+        print('ERROR: No station dictionary file was found.')
+    gen = raw_data_generator(station_filepaths[0])
     for row in gen:
         yield Station(row)

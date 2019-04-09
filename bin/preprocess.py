@@ -109,6 +109,6 @@ def preprocess(text, macron='macron_to_vowel'):
         text = macron2vowel(text)
     elif macron == 'double_vowel_to_macron':
         text = double_vowel2macron(text)
-    # 最後に 'ん' が残った場合は消す (例: 'スクリーン' -> ['す', 'く', 'りー', 'ん'])
+    # 最後に 'ん' が残った場合は消す (例: 'スクリーン' -> ['す', 'く', 'りー', 'ん'] -> ['す', 'く', 'りー'])
     text = re.sub(r'ん', '', text)
     return text

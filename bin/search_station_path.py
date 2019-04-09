@@ -53,7 +53,7 @@ class StationPath:
 
 def search_station_path(lyrics, remaining_stations, hparams):
     # beam search による最適パスの探索
-    # 最大で memory_step 前までのパスを考慮して次のノードを探索できる
+    # 最大で memory_step 前までのノードを考慮して次のノードを探索できる
     lyrics = preprocess(lyrics, macron='double_vowel_to_macron')
     station_paths = [
         StationPath(
@@ -81,7 +81,8 @@ def search_station_path(lyrics, remaining_stations, hparams):
         memory_count = hparams['beam_size'] ** (hparams['memory_steps'] - 1)
         station_paths = sorted(remaining_lyrics2path.values(), key=lambda x: x.match_score, reverse=True)[:memory_count]
         remaining_lyrics_length = max([len(path.remaining_lyrics.split()) for path in station_paths])
-    print()
+    if args.verbose:
+        print()
     return sorted(station_paths, key=lambda x: x.match_score, reverse=True)[0]
 
 def extend_path(path, hparams):
@@ -122,7 +123,7 @@ def main():
     with open(args.hparams_filepath, 'r') as hparams_file:
         hparams = json.load(hparams_file)
     if args.lyrics:
-        # 歌詞を直接入力する場合にそれを受け取る
+        # 歌詞を直接入力する場合
         lyrics = args.lyrics
     else:
         # 歌詞を .txt ファイルから受け取る場合

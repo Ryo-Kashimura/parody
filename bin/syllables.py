@@ -21,7 +21,7 @@ def syllables(term):
     if term[0] == '/':
         term = term[1:]
     _syllables = term.split('/')
-    # 次により細かく分割
+    # 次に連続する母音の間で分割
     regex = r"([aiueo])([aiueo])"
     syllables = []
     for syllable in _syllables:

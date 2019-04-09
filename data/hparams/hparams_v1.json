@@ -3,7 +3,7 @@
 	"memory_steps": 3, 
 	"no_deprecated": true, 
 	"repeated": false, 
-	"station_dictionary_filepath": "../data/station/station_dictionary_20190217.tsv", 
+	"station_dictionary_dir": "../data/station/", 
 	"consonants2sim_filepath": "../data/sim/consonants2sim.json", 
 	"theta_pcr": 0.25, 
 	"syl_score_coefs": [2.0, 0.5, 0.0, -10000.0], 

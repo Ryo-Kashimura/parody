@@ -50,6 +50,7 @@ def term_match_score(term, lyrics, phrase_comsumption_rate, hparams):
             _syl, new_pcr, remaining_phrases, _pos = next(lyrics_syl_gen)
             score_rates.append(syllable_match_score(syl, _syl, i, _pos, hparams))
         except StopIteration:
+            # 歌詞よりも単語が長くてはみ出す時はペナルティを与える
             return -1e+6, ' '.join(remaining_phrases), new_pcr
     remaining_lyrics = ' '.join(remaining_phrases)
     # 単語に対するスコアを計算
