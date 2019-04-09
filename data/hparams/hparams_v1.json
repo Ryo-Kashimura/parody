@@ -7,5 +7,5 @@
 	"consonants2sim_filepath": "../data/sim/consonants2sim.json", 
 	"theta_pcr": 0.25, 
 	"syl_score_coefs": [2.0, 0.5, 0.0, -10000.0], 
-	"syl_rates": [1.2, 1.1, 1.0, 1.0]
+	"syl_rates": [2.0, 1.5, 1.0, 1.0]
 }
