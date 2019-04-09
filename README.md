@@ -11,7 +11,7 @@
   - `git clone https://github.com/Ryo-Kashimura/parody`
   - **以下，ホームディレクトリにの直下にこのリポジトリをクローンしたものとして説明を進めます。** その他の場所にクローンした場合は適宜ディレクトリやファイルのパスを読み替えてください。
 2. `~/parody/bin/requirements.txt` に記述されたパッケージを事前にインストールする必要があります。
-  - `pip intall -r ~/parody/bin/requirements.txt` 等のコマンドでインストールできます。
+  - `pip install -r ~/parody/bin/requirements.txt` 等のコマンドでインストールできます。
 ### 2.2 駅名データの用意
 #### 2.2.1 駅名データのダウンロード
 1. [こちら][link]より `.zip` ファイルをダウンロードできます。 **ご使用の際は[こちら][link]の「利用について」の項目をよく読み，同意の上でご利用ください。**
