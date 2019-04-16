@@ -98,6 +98,12 @@ def replace_unromanizable_hiragana(text):
         text = re.sub(r'%s' % key, value, text)
     return text
 
+def lowercase_vowel2upper(text):
+    lower2upper = {'ぁ': 'あ', 'ぃ': 'い', 'ぅ': 'う', 'ぇ': 'え', 'ぉ': 'お'}
+    for lower, upper in lower2upper.items():
+        text = re.sub(r'%s' % lower, upper, text)
+    return text
+
 def preprocess(text, macron='macron_to_vowel'):
     # 前処理のまとめ
     text = delete_brackets(text)
@@ -109,6 +115,7 @@ def preprocess(text, macron='macron_to_vowel'):
         text = macron2vowel(text)
     elif macron == 'double_vowel_to_macron':
         text = double_vowel2macron(text)
+    text = lowercase_vowel2upper(text)
     # 最後に 'ん' が残った場合は消す (例: 'スクリーン' -> ['す', 'く', 'りー', 'ん'] -> ['す', 'く', 'りー'])
     text = re.sub(r'ん', '', text)
     return text
